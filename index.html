@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scuderia Ferrari — Leclerc & Hamilton</title>
+<title>Ferrari — Scuderia Ferrari F1</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -705,10 +705,10 @@ footer {
   <div class="hero-grid"></div>
   <div class="hero-number">16</div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Scuderia Ferrari — Temporada 2025</div>
+    <div class="hero-eyebrow">Scuderia Ferrari — Temporada 2026</div>
     <h1 class="hero-title">
-      VELOCIDAD<br>
-      SIN <span class="red">LÍMITES</span>
+      FERRARI<br>
+      <span class="red">F1</span>
     </h1>
     <p class="hero-desc">
       Dos leyendas. Una escudería. El legado más grande de la Fórmula 1 continúa con Charles Leclerc y Lewis Hamilton, unidos por el color rojo que lo define todo.
@@ -819,7 +819,7 @@ footer {
         <div class="achievement">7 títulos mundiales — récord absoluto en F1</div>
         <div class="achievement">103 victorias — el piloto más ganador de la historia</div>
         <div class="achievement">Primer piloto negro en la historia de la F1</div>
-        <div class="achievement">Debut en Ferrari en la temporada 2025</div>
+        <div class="achievement">Debut en Ferrari en la temporada 2025 — 2026</div>
       </div>
     </div>
   </div>
@@ -852,9 +852,9 @@ footer {
       <p class="timeline-text">Michael Schumacher inicia una dinastía de cinco títulos consecutivos con Ferrari entre 2000 y 2004. Una era de dominación absoluta que convirtió al alemán y a la Scuderia en los más grandes de su época.</p>
     </div>
     <div class="timeline-item">
-      <div class="timeline-year">2025</div>
+      <div class="timeline-year">2026</div>
       <div class="timeline-title">La nueva era: Leclerc & Hamilton</div>
-      <p class="timeline-text">El fichaje de Lewis Hamilton marca el inicio de una nueva era dorada. Junto a Charles Leclerc, Ferrari tiene por primera vez en décadas dos pilotos con capacidad real de pelear el campeonato. Maranello vuelve a soñar.</p>
+      <p class="timeline-text">El fichaje de Lewis Hamilton marca el inicio de una nueva era dorada. Junto a Charles Leclerc, Ferrari tiene por primera vez en décadas dos pilotos con capacidad real de pelear el campeonato. Maranello vuelve a soñar en 2026.</p>
     </div>
   </div>
 </section>
@@ -883,10 +883,14 @@ footer {
     </div>
   </div>
 
-  <div class="section-label">Temporada 2025</div>
+  <div class="section-label">Temporada 2026 — En vivo</div>
   <h3 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:24px;">CLASIFICACIÓN PILOTOS</h3>
 
-  <table class="season-table">
+  <div id="standings-loading" style="padding:40px;text-align:center;font-family:'Barlow Condensed',sans-serif;letter-spacing:3px;color:var(--text2);font-size:13px;text-transform:uppercase;">
+    Cargando clasificación en tiempo real...
+  </div>
+
+  <table class="season-table" id="standings-table" style="display:none">
     <thead>
       <tr>
         <th>Pos</th>
@@ -896,50 +900,16 @@ footer {
         <th>Victorias</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td><span class="pos p1">1</span></td>
-        <td><span class="driver-name">MAX VERSTAPPEN</span></td>
-        <td>Red Bull</td>
-        <td><span class="points">—</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><span class="pos p2">2</span></td>
-        <td><span class="driver-name">CHARLES LECLERC</span></td>
-        <td style="color:var(--red)">Ferrari</td>
-        <td><span class="points">—</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><span class="pos p3">3</span></td>
-        <td><span class="driver-name">LEWIS HAMILTON</span></td>
-        <td style="color:var(--red)">Ferrari</td>
-        <td><span class="points">—</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><span class="pos">4</span></td>
-        <td><span class="driver-name">LANDO NORRIS</span></td>
-        <td>McLaren</td>
-        <td><span class="points">—</span></td>
-        <td>—</td>
-      </tr>
-      <tr>
-        <td><span class="pos">5</span></td>
-        <td><span class="driver-name">GEORGE RUSSELL</span></td>
-        <td>Mercedes</td>
-        <td><span class="points">—</span></td>
-        <td>—</td>
-      </tr>
-    </tbody>
+    <tbody id="standings-body"></tbody>
   </table>
-  <p style="margin-top:16px;font-size:12px;color:var(--text2);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;">* CLASIFICACIÓN REFERENCIAL — ACTUALIZA CON LOS DATOS REALES DE LA TEMPORADA</p>
+  <p id="standings-note" style="margin-top:16px;font-size:12px;color:var(--text2);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;display:none;">
+    * DATOS OFICIALES — ACTUALIZADOS AUTOMÁTICAMENTE
+  </p>
 </section>
 
 <footer>
   <div class="footer-logo">FERRARI F1</div>
-  <div class="footer-text">Hecho por Renato Baeza — 2025</div>
+  <div class="footer-text">Hecho por Renato Baeza — 2026</div>
   <div class="footer-text">Scuderia Ferrari Fan Page</div>
 </footer>
 
@@ -968,8 +938,52 @@ function showPilot(id, btn) {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.2 });
-
 document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+
+// LIVE STANDINGS — Ergast API
+async function loadStandings() {
+  try {
+    // Try 2026 first, fallback to 2025
+    let res = await fetch('https://ergast.com/api/f1/2026/driverStandings.json');
+    let data = await res.json();
+    let standings = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings;
+
+    if (!standings || standings.length === 0) {
+      res = await fetch('https://ergast.com/api/f1/current/driverStandings.json');
+      data = await res.json();
+      standings = data?.MRData?.StandingsTable?.StandingsLists?.[0]?.DriverStandings;
+    }
+
+    if (!standings || standings.length === 0) throw new Error('No data');
+
+    const tbody = document.getElementById('standings-body');
+    tbody.innerHTML = standings.slice(0, 10).map(s => {
+      const pos = parseInt(s.position);
+      const posClass = pos === 1 ? 'p1' : pos === 2 ? 'p2' : pos === 3 ? 'p3' : '';
+      const isFerrari = s.Constructors?.[0]?.name?.includes('Ferrari');
+      const constructorColor = isFerrari ? 'style="color:var(--red)"' : '';
+      const name = `${s.Driver.givenName} ${s.Driver.familyName}`.toUpperCase();
+      const team = s.Constructors?.[0]?.name || '—';
+      return `
+        <tr>
+          <td><span class="pos ${posClass}">${s.position}</span></td>
+          <td><span class="driver-name">${name}</span></td>
+          <td ${constructorColor}>${team}</td>
+          <td><span class="points">${s.points}</span></td>
+          <td>${s.wins}</td>
+        </tr>`;
+    }).join('');
+
+    document.getElementById('standings-loading').style.display = 'none';
+    document.getElementById('standings-table').style.display = 'table';
+    document.getElementById('standings-note').style.display = 'block';
+
+  } catch(e) {
+    document.getElementById('standings-loading').textContent = 'No se pudo cargar la clasificación. Intenta más tarde.';
+  }
+}
+
+loadStandings();
 </script>
 </body>
 </html>
